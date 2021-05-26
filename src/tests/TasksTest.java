@@ -61,7 +61,13 @@ class TasksTest {
 
     @Test
     @Order(8)
-    void permutation_inputsWithOneLetterOff_returnsFalse() {
+    void permutation_inputWithOneLetterOff_returnsFalse() {
         assertFalse(tasks.permutation("KRETCGI", "CRICKET"));
+    }
+
+    @Test
+    @Order(9)
+    void urlIfy_stringInputWithSpacesAndLength_returnsCorrectUrl() {
+        assertEquals("Mr%20John%20Smith", tasks.urlIfy("Mr John Smith      ", 13));
     }
 }

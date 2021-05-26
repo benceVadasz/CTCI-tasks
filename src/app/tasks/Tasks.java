@@ -32,4 +32,20 @@ public class Tasks {
 
         return new String(tempArrayA).equals(new String(tempArrayB));
     }
+
+    public String urlIfy(String str, int length)
+    {
+        StringBuilder sb = new StringBuilder();
+        char[] tempArray = str.toCharArray();
+        for (int i = 0; i < length; i ++) {
+            if (tempArray[i] == ' ') {
+                sb.append("%20");
+            }
+            else {
+                sb.append(tempArray[i]);
+            }
+        }
+
+        return sb.toString();
+    }
 }
