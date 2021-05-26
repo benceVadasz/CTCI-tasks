@@ -1,5 +1,7 @@
 package app.tasks;
 
+import java.util.Arrays;
+
 public class Tasks {
 
     /**
@@ -19,5 +21,15 @@ public class Tasks {
             }
         }
         return true;
+    }
+
+    public boolean permutation(String first, String second)
+    {
+        char[] tempArrayA = first.toCharArray();
+        char[] tempArrayB = second.toCharArray();
+        Arrays.sort(tempArrayA);
+        Arrays.sort(tempArrayB);
+
+        return new String(tempArrayA).equals(new String(tempArrayB));
     }
 }

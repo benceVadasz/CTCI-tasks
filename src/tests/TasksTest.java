@@ -40,4 +40,28 @@ class TasksTest {
     void isUnique_wordWithRepeatingLettersAsInput_returnsFalse() {
         assertFalse(tasks.isUnique("pizza"));
     }
+
+    @Test
+    @Order(5)
+    void permutation_twoEmptyStringsAsInputs_returnsTrue() {
+        assertTrue(tasks.permutation("", ""));
+    }
+
+    @Test
+    @Order(6)
+    void permutation_oneEmptyStringAndOneNotEmptyAsInputs_returnsFalse() {
+        assertFalse(tasks.permutation("", "F"));
+    }
+
+    @Test
+    @Order(7)
+    void permutation_permutationInputs_returnsTrue() {
+        assertTrue(tasks.permutation("KRETCCI", "CRICKET"));
+    }
+
+    @Test
+    @Order(8)
+    void permutation_inputsWithOneLetterOff_returnsFalse() {
+        assertFalse(tasks.permutation("KRETCGI", "CRICKET"));
+    }
 }
