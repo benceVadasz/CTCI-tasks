@@ -70,4 +70,28 @@ class TasksTest {
     void urlIfy_stringInputWithSpacesAndLength_returnsCorrectUrl() {
         assertEquals("Mr%20John%20Smith", tasks.urlIfy("Mr John Smith      ", 13));
     }
+
+    @Test
+    @Order(10)
+    void oneWay_inputWithOneLetterOffAndDifferentLength_returnsTrue() {
+        assertTrue(tasks.oneEditAway("pale", "ple"));
+    }
+
+    @Test
+    @Order(11)
+    void oneWay_inputWithDifferentLength_returnsTrue() {
+        assertTrue(tasks.oneEditAway("pale", "pales"));
+    }
+
+    @Test
+    @Order(12)
+    void oneWay_inputWithSameLengthAndOneLetterOff_returnsTrue() {
+        assertTrue(tasks.oneEditAway("pale", "bale"));
+    }
+
+    @Test
+    @Order(13)
+    void oneWay_inputWithSameLengthAndTwoLettersOff_returnsFalse() {
+        assertFalse(tasks.oneEditAway("pale", "bake"));
+    }
 }
