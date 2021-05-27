@@ -94,4 +94,16 @@ class TasksTest {
     void oneWay_inputWithSameLengthAndTwoLettersOff_returnsFalse() {
         assertFalse(tasks.oneEditAway("pale", "bake"));
     }
+
+    @Test
+    @Order(14)
+    void compression_shortInput_returnsTheString() {
+        assertEquals("abcdefg", tasks.compression("abcdefg"));
+    }
+
+    @Test
+    @Order(15)
+    void compression_inputWithMultipleDuplicates_returnsCompression() {
+        assertEquals("a2b1c5a3", tasks.compression("aabcccccaaa"));
+    }
 }

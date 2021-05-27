@@ -83,4 +83,23 @@ public class Tasks {
         }
         return true;
     }
+
+    public String compression(String str) {
+        int counter = 1;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length() - 1; i++) {
+            char next = str.charAt(i + 1);
+            if (str.charAt(i) == next) {
+                counter++;
+            } else {
+                sb.append(str.charAt(i)).append(counter);
+                counter = 1;
+            }
+            if (i == str.length()-2) {
+                sb.append(str.charAt(i)).append(counter);
+            }
+        }
+
+        return sb.toString().length() < str.length() ? sb.toString() : str;
+    }
 }
