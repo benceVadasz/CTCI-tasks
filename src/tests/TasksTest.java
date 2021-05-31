@@ -1,6 +1,6 @@
 package tests;
 
-import app.tasks.Tasks;
+import app.tasks.ArraysAndStrings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TasksTest {
 
-    Tasks tasks;
+    ArraysAndStrings tasks;
 
     @Test
     @BeforeEach
     void setUp() {
-        tasks = new Tasks();
+        tasks = new ArraysAndStrings();
     }
 
     @Test

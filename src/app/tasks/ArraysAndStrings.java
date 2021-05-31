@@ -3,7 +3,7 @@ package app.tasks;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Tasks {
+public class ArraysAndStrings {
 
     /**
      * @param str

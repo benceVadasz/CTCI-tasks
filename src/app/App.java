@@ -8,7 +8,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        Tasks tasks = new Tasks();
+        ArraysAndStrings tasks = new ArraysAndStrings();
         System.out.println(tasks.isUnique("bd"));
     }
 
