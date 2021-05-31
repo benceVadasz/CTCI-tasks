@@ -1,5 +1,6 @@
 package app.tasks;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Tasks {
@@ -95,11 +96,57 @@ public class Tasks {
                 sb.append(str.charAt(i)).append(counter);
                 counter = 1;
             }
-            if (i == str.length()-2) {
+            if (i == str.length() - 2) {
                 sb.append(str.charAt(i)).append(counter);
             }
         }
 
         return sb.toString().length() < str.length() ? sb.toString() : str;
+    }
+
+    public int[][] rotateMatrix(int[][] matrix) {
+
+        int[][] fin = new int[3][3];
+        int[][] finFin = new int[3][3];
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                fin[j][i] = matrix[i][j];
+            }
+        }
+        for (int i = 0; i < fin.length; i++) {
+            finFin[fin.length - i - 1] = fin[i];
+        }
+        return finFin;
+    }
+
+    public int[][] zeroMatrix(int[][] matrix) {
+
+        int[][] fin = new int[matrix.length][matrix[0].length];
+        ArrayList<Integer> colIndexes = new ArrayList<>();
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (!colIndexes.contains(j) && matrix[i][j] != 0) {
+                    fin[i][j] = matrix[i][j];
+                } else if (colIndexes.contains(j) && matrix[i][j] != 0) {
+                    fin[i][j] = 0;
+                } else if (matrix[i][j] == 0) {
+
+                    int index = 0;
+                    colIndexes.add(j);
+                    for (int k = 0; k < matrix[i].length; k++) {
+                        fin[i][index] = 0;
+                        index++;
+                    }
+                    if (i != matrix.length - 1) {
+                        j = -1;
+                        i++;
+                    }
+                }
+            }
+        }
+
+        return fin;
     }
 }

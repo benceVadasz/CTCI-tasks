@@ -106,4 +106,35 @@ class TasksTest {
     void compression_inputWithMultipleDuplicates_returnsCompression() {
         assertEquals("a2b1c5a3", tasks.compression("aabcccccaaa"));
     }
+
+    @Test
+    @Order(16)
+    void rotateMatrix_methodRotatesMatrix() {
+        int[][] result = { {3,6,9} , {2,5,8}, {1,4,7} };
+        int[][] input = { {1,2,3} , {4,5,6}, {7,8,9} };
+        assertArrayEquals(result, tasks.rotateMatrix(input));
+    }
+
+    @Test
+    @Order(17)
+    void zeroMatrix_matrixWithNoZeros_returnsOriginalMatrix() {
+        int[][] input = { {3,6,9} , {2,5,8}, {1,4,7} };
+        assertArrayEquals(input, tasks.zeroMatrix(input));
+    }
+
+    @Test
+    @Order(18)
+    void zeroMatrix_MatrixWithOneZero_returnsItsRowAndColumnWithZeros() {
+        int[][] input = { {3,0,9} , {2,5,8}, {1,4,7} };
+        int[][] result = { {0,0,0} , {2,0,8}, {1,0,7} };
+        assertArrayEquals(result, tasks.zeroMatrix(input));
+    }
+
+    @Test
+    @Order(19)
+    void zeroMatrix_MatrixWithZerosInEveryRow_returnsAllZeros() {
+        int[][] input = { {3,0,9} , {0,5,8}, {1,4,0} };
+        int[][] result = { {0,0,0} , {0,0,0}, {0,0,0} };
+        assertArrayEquals(result, tasks.zeroMatrix(input));
+    }
 }
