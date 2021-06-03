@@ -1,43 +1,40 @@
 package app.tasks;
 
-import jdk.dynalink.NamedOperation;
-
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
-public class LinkedList {
-    Node head;
+public class LinkedList<T> {
+    Node<T> head;
 
 
-    class Node {
-        int value;
-        Node next;
+    class Node<T> {
+        private final T value;
+        Node<T> next;
 
-        Node(int d) {
+        Node(T d) {
             value = d;
+            this.next = null;
         }
 
     }
 
-    public void add(int value) {
+    public void add(T value) {
         if (this.head == null) {
-            this.head = new Node(value);
-            return;
+            this.head = new Node<>(value);
+        } else {
+            Node<T> end = new Node<>(value);
+            Node<T> n = this.head;
+            while (n.next != null) {
+                n = n.next;
+            }
+            n.next = end;
         }
-        Node end = new Node(value);
-        Node n = this.head;
-        while (n.next != null) {
-            n = n.next;
-        }
-        n.next = end;
     }
 
     public int size() {
         int count = 0;
         if (head != null) {
             count = 1;
-            Node current = head;
+            Node<T> current = head;
             while (current.next != null) {
                 current = current.next;
                 count++;
@@ -46,12 +43,12 @@ public class LinkedList {
         return count;
     }
 
-    public int get(int index) {
+    public T get(int index) {
         if (0 > index) {
             throw new IndexOutOfBoundsException();
         }
         int i = 0;
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
             if (i == index) {
                 return current.value;
@@ -68,7 +65,7 @@ public class LinkedList {
      * this function removes duplicates from an unordered singly linked list
      */
     public void removeDups() {
-        Node ptr1, ptr2, dup = null;
+        Node<T> ptr1, ptr2, dup = null;
         ptr1 = head;
 
         while (ptr1 != null && ptr1.next != null) {
@@ -90,63 +87,97 @@ public class LinkedList {
         if (head == null)
             return;
         if (head.next == null) {
+            head = null;
             return;
         }
-        Node slow = head;
-        Node fast = head;
-        Node prev = null;
+        Node<T> slow = head;
+        Node<T> fast = head;
+        Node<T> prev = null;
         while (fast != null && fast.next != null) {
             fast = fast.next.next;
-            slow = slow.next;
             prev = slow;
+            slow = slow.next;
+
         }
         prev.next = slow.next;
     }
 
-    public LinkedList partition(int value) {
-        LinkedList less = new LinkedList();
-        LinkedList equalOrMore = new LinkedList();
+    public LinkedList<T> partition(int value) {
+        LinkedList<T> less = new LinkedList<>();
+        LinkedList<T> equalOrMore = new LinkedList<>();
 
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
-            if (current.value < value) {
+            if ((int) current.value < value) {
                 less.add(current.value);
             } else {
                 equalOrMore.add(current.value);
             }
             current = current.next;
         }
-        Node equalOrMoreCurrent = equalOrMore.head;
+        Node<T> equalOrMoreCurrent = equalOrMore.head;
         while (equalOrMoreCurrent.next != null) {
-            less.add(equalOrMoreCurrent.value);
+            less.add((T) equalOrMoreCurrent.value);
             equalOrMoreCurrent = equalOrMoreCurrent.next;
         }
-        less.add(equalOrMoreCurrent.value);
+        less.add((T) equalOrMoreCurrent.value);
         return less;
     }
 
-    public int sumLists(LinkedList first, LinkedList second) {
-        Node dummy = new Node(0);
-        Node temp = dummy;
+    public int sumLists(LinkedList<T> first, LinkedList<T> second) {
+        Node<Integer> dummy = new Node<>(0);
+        Node<Integer> temp = dummy;
         int carry = 0;
-        Node currF = first.head;
-        Node currS = second.head;
+        Node<T> currF = first.head;
+        Node<T> currS = second.head;
         while (currF != null || currS != null || carry == 1) {
             int sum = 0;
             if (currF != null) {
-               sum += currF.value;
-               currF = currF.next;
+                sum += (int) currF.value;
+                currF = currF.next;
             }
             if (currS != null) {
-               sum += currS.value;
-               currS = currS.next;
+                sum += (int) currS.value;
+                currS = currS.next;
             }
 
             sum += carry;
             carry = sum / 10;
-            temp.next = new Node(sum % 10);
+            temp.next = new Node<>(sum % 10);
             temp = temp.next;
         }
         return dummy.next.value;
+    }
+
+    public boolean palindrome(LinkedList<T> nodeWrapper, Node<T> head) {
+        return checkPalindrome(nodeWrapper, head);
+    }
+
+    public boolean checkPalindrome(LinkedList<T> left, Node<T> right) {
+        if (right == null) {
+            return true;
+        }
+        boolean result = checkPalindrome(left, right.next) &&
+                (left.head.value == right.value);
+        left.head = left.head.next;
+
+        return result;
+    }
+
+    public Node<T> getHead() {
+        return head;
+    }
+
+    public T intersection(LinkedList<T> aL, LinkedList<T> bL)
+    {
+        Node<T> headA = aL.head;
+        Node<T> headB = bL.head;
+        Node<T> a = headA, b = headB;
+        while (a != b) {
+            a = a.next == null ? headB : a.next;
+            if (a.value == b.value) return a.value;
+            b = b.next == null ? headA : b.next;
+        }
+        return a != null ? a.value : null;
     }
 }
